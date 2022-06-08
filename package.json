@@ -11,6 +11,7 @@
     "dat.gui": "^0.7.9",
     "gltfjsx": "^4.6.4",
     "gsap": "^3.10.4",
+    "lerp": "^1.0.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
