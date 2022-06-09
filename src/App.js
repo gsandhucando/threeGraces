@@ -136,10 +136,6 @@ function App() {
           {/* <OrbitControls /> */}
         </Canvas>
       </div>
-      <div className='title'>
-        <h2>The</h2>
-        <h1>Three Graces</h1>
-      </div>
       {/*
       <div>
       <Canvas className='model' style={{ height: '100vh', background: 'black' }} camera={{fov: 55, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio}>
