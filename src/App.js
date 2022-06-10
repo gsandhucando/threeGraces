@@ -95,7 +95,8 @@ function App() {
     var t2 = gsap.timeline();
     var t3 = gsap.timeline();
     tl.to(".ulContainer", { opacity: 1, duration: 1, ease: Power3.easeIn });
-    t2.to(".model", { opacity: 1, duration: 2, ease: Power3.easeIn });
+    // t2.from(".model", { x: 500, duration: 2, ease: Power3.easeIn });
+    t2.to(".model", { y: 0, opacity: 1, duration: 2, ease: Power3.easeIn });
     t3.to(".title", { opacity: 1, duration: 3, ease: Power3.easeIn });
   }, []);
 
