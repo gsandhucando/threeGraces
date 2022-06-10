@@ -30,6 +30,7 @@
   opacity: 0;
 }
 .title{
+  opacity: 0;
   pointer-events: none;
   position: absolute;
   display: flex;
@@ -44,7 +45,6 @@
   width: 100%;
   color: white;
   font-family: 'El Messiri', sans-serif;
-  opacity: 0;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&display=swap');
