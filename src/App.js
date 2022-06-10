@@ -48,8 +48,8 @@ function Dodecahedron() {
   }, [])
 
   const light = useRef()
-  useHelper(light, THREE.SpotLightHelper, 'cyan')
-
+  //useHelper(light, THREE.SpotLightHelper, 'cyan')
+  
   return (
     <>
       <spotLight ref={ref} intensity={0.1} position={[0, 0, 30]} angle={0.15} penumbra={.6} decay={2} castShadow />
@@ -77,7 +77,7 @@ function LightSection2() {
 
   return (
     <>
-      <spotLight ref={ref} intensity={0.1} position={[0, 0, 30]} angle={0.15} penumbra={.6} decay={2} castShadow />
+      <spotLight ref={ref} intensity={0.3} position={[0, 0, 30]} angle={0.15} penumbra={.6} decay={2} castShadow />
       {/* <spotLight ref={light} intensity={100000} position={[0, -10, -100]} penumbra={10} decay={2} /> */}
       {/* <spotLight intensity={100} position={[0, -70, -4000]}  angle={10} penumbra={.6} castShadow /> */}
     </>

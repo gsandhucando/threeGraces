@@ -9,11 +9,11 @@ export default function Model(props) {
   useFrame(({ pointer }) => (group.current.rotation.y = lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
   return (
     <group ref={group} {...props}>
-        {console.log(nodes)}
-      {/* <mesh castShadow receiveShadow geometry={nodes.Node_3.geometry} rotation={[-Math.PI / 2, 0, 0]} scale={[0.2, 0.224, 0.224]} dispose={null}>
-        <meshStandardMaterial roughness={0.9} metalness={0.5} color="#474747" />
-      </mesh> */}
-      <Lights />
+        {console.log(nodes, 'nodes')}
+      <mesh castShadow receiveShadow geometry={nodes.Object_3.geometry}  dispose={null}>
+        {/* <meshStandardMaterial roughness={0.9} metalness={0.5} color="#474747" /> */}
+      </mesh>
+      {/* <Lights /> */}
     </group>
   )
 }
