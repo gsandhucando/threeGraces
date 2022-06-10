@@ -15,8 +15,16 @@
   list-style: none;
   color: black;
   z-index: 10;
-  margin: 5px;
+  margin: 10px;
   font-family: 'El Messiri', sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+.liContainer:hover{
+  color: #b7b7b7;
+  text-decoration: underline;
+  /* transition: all 200ms ease-in-out; */
 }
 .model{
   opacity: 0;
@@ -24,7 +32,7 @@
 .title{
   pointer-events: none;
   position: absolute;
-  bottom: 2.5em;
+  bottom: 2px;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
   font-size: 2em;
@@ -33,6 +41,7 @@
   width: 100%;
   color: white;
   font-family: 'El Messiri', sans-serif;
+  opacity: 0;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&display=swap');

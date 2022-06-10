@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import React, { Suspense, useRef, useState, useEffect } from "react"
 import { Environment, useGLTF, Html, useProgress, PerspectiveCamera, OrbitControls, useHelper } from "@react-three/drei"
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import gsap, { Power4 } from 'gsap'
+import gsap, { Power3 } from 'gsap'
 import Model from './Model'
 import './App.css';
 
@@ -52,9 +52,7 @@ function Dodecahedron() {
   
   return (
     <>
-      <spotLight ref={ref} intensity={0.1} position={[0, 0, 30]} angle={0.15} penumbra={.6} decay={2} castShadow />
-      <spotLight ref={light} intensity={1} position={[0, -10, -100]} penumbra={10} decay={2} />
-      {/* <spotLight intensity={100} position={[0, -70, -4000]}  angle={10} penumbra={.6} castShadow /> */}
+      <spotLight ref={ref} intensity={.3} position={[0, 0, 30]} angle={0.15} penumbra={1} decay={2} castShadow />
     </>
   )
 }
@@ -95,33 +93,31 @@ function App() {
   useEffect(() => {
     var tl = gsap.timeline();
     var t2 = gsap.timeline();
-    tl.to(".ulContainer", { opacity: 1, duration: 1, ease: Power4.easeIn });
-    t2.to(".model", { opacity: 1, duration: .3, ease: Power4.easeIn });
+    var t3 = gsap.timeline();
+    tl.to(".ulContainer", { opacity: 1, duration: 1, ease: Power3.easeIn });
+    t2.to(".model", { opacity: 1, duration: 2, ease: Power3.easeIn });
+    t3.to(".title", { opacity: 1, duration: 3, ease: Power3.easeIn });
   }, []);
+
+  let navList = ['ART', 'ABOUT', 'VISIT', 'SHOP', 'SEARCH']
 
   return (
     <div className="App">
       <div className='header'>
         <ul className='ulContainer'>
-          <li className='liContainer'>
-            ART
-          </li>
-          <li className='liContainer'>
-            ABOUT
-          </li>
-          <li className='liContainer'>
-            VISIT
-          </li>
-          <li className='liContainer'>
-            SHOP
-          </li>
-          <li className='liContainer'>
-            SEARCH
-          </li>
+          {
+            navList.map(item => {
+              return (
+                <li key={item} className='liContainer'>
+                  {item}
+                </li>
+              )
+            })
+          }
         </ul>
       </div>
       <div className="canvasContainer">
-        <Canvas className='model' style={{ height: '100vh', background: 'black' }} camera={{fov: 55, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio}>
+        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{fov: 65, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio}>
           <directionalLight position={[0, 0, -100]} intensity={.6} />
           {/* <directionalLight position={[0, -20, -600]} intensity={10} /> */}
           <Suspense fallback={<Loader />}>
@@ -148,6 +144,10 @@ function App() {
         </Canvas>
       </div>
     */}
+        <div className='title'>
+        <h2>The</h2>
+        <h1>Three Graces</h1>
+      </div>
     </div>
   )
 }
