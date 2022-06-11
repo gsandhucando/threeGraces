@@ -176,7 +176,7 @@ function App() {
         </ul>
       </div>
       <div className="canvasContainer">
-        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 65, position: [-10, 0, 10] }} pixelRatio={window.devicePixelRatio}>
+        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 65, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio}>
           <directionalLight position={[0, 0, -100]} intensity={.6} />
           <Suspense fallback={<Loader />}>
             <ThreeGraces />
