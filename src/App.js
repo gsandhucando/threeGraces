@@ -1,24 +1,24 @@
 import * as THREE from 'three';
-import React, { Suspense, useRef, useState, useEffect } from "react"
-import { Environment, useGLTF, Html, useProgress, PerspectiveCamera, OrbitControls, useHelper } from "@react-three/drei"
+import React, { Suspense, useRef, useState, useEffect, useMemo } from "react"
+import { ScrollControls, useScroll, Environment, useGLTF, Html, useProgress, PerspectiveCamera, OrbitControls, useHelper } from "@react-three/drei"
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import gsap, { Power3 } from 'gsap'
 import Model from './ThreeGracesCompSecondDiv'
 import NavList from './NavList'
 import './App.css';
 
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { CSSPlugin } from 'gsap/CSSPlugin'
+import { set } from 'mongoose';
+
+
+// Force CSSPlugin to not get dropped during build
+gsap.registerPlugin(CSSPlugin)
+
 // ES6:
 // import * as dat from 'dat.gui';
 
 // const gui = new dat.GUI();
-
-function Zoom() {
-  useFrame((state) => {
-    console.log(state, 'zoom')
-    state.camera.position.lerp({ x: 0, y: 0, z: 12 }, 0.005)
-    state.camera.lookAt(0, 0, 0)
-  }, [])
-}
 
 
 function Loader() {
@@ -27,28 +27,11 @@ function Loader() {
 }
 
 function ThreeGraces() {
-    const { camera, mouse } = useThree()
+  const { camera, mouse } = useThree()
   const { scene } = useGLTF("threeGracesCompressed.glb")
-  console.log(camera, mouse)
-  const vec = new THREE.Vector3()
-  // useFrame(() => {
-  //   camera.position.lerp(vec.set(mouse.x * 1, mouse.y * 1, camera.position.z), 0.01)
-  // }, []
-  // )
 
-  return <primitive onClick={(e) => Zoom} color="#474747" className='model' style={{ opacity: 0 }} object={scene} position={[-33, -115, -10]} />
-}
-function ThreeGracesSecondDiv() {
-    const { camera, mouse } = useThree()
-  const { scene } = useGLTF("threeGracesCompSecondDiv.glb")
-  console.log(camera, mouse)
-  // const vec = new THREE.Vector3()
-  // useFrame(() => {
-  //   camera.position.lerp(vec.set(mouse.x * 1, mouse.y * 1, camera.position.z), 0.01)
-  // }, []
-  // )
 
-  return <primitive onClick={(e) => Zoom} color="#474747" className='model' style={{ opacity: 0 }} object={scene} position={[-33, -115, -10]} />
+  return <primitive color="#474747" className='model' style={{ opacity: 0 }} object={scene} position={[-33, -115, -10]} />
 }
 
 
@@ -77,7 +60,7 @@ function Dodecahedron() {
 
   const light = useRef()
   //useHelper(light, THREE.SpotLightHelper, 'cyan')
-  
+
   return (
     <>
       <spotLight ref={ref} intensity={.3} position={[0, 0, 30]} angle={0.15} penumbra={1} decay={2} castShadow />
@@ -103,15 +86,15 @@ function LightSection2() {
 
   return (
     <>
-      <spotLight ref={ref} intensity={0.3} position={[0, 0, 30]} angle={0.15} penumbra={.6} decay={2} castShadow />
+      <spotLight ref={ref} intensity={.1} position={[0, 0, 30]}  penumbra={.6} decay={2} castShadow />
       {/* <spotLight ref={light} intensity={100000} position={[0, -10, -100]} penumbra={10} decay={2} /> */}
       {/* <spotLight intensity={100} position={[0, -70, -4000]}  angle={10} penumbra={.6} castShadow /> */}
     </>
   )
 }
 
-function App() {
 
+function App() {
   useEffect(() => {
     var tl = gsap.timeline();
     var t2 = gsap.timeline();
@@ -123,37 +106,53 @@ function App() {
   }, []);
 
   let navList = ['ART', 'ABOUT', 'VISIT', 'SHOP', 'SEARCH']
-  let [click, setClick] = useState(false)
 
-  // function Frames({ images, q = new THREE.Quaternion(), p = new THREE.Vector3() }) {
-  //   const ref = useRef()
-  //   const clicked = useRef()
-  //   const [, params] = useRoute('/item/:id')
-  //   const [, setLocation] = useLocation()
-  //   useEffect(() => {
-  //     clicked.current = ref.current.getObjectByName(params?.id)
-  //     if (clicked.current) {
-  //       clicked.current.parent.updateWorldMatrix(true, true)
-  //       clicked.current.parent.localToWorld(p.set(0, GOLDENRATIO / 2, 1.25))
-  //       clicked.current.parent.getWorldQuaternion(q)
-  //     } else {
-  //       p.set(0, 0, 5.5)
-  //       q.identity()
-  //     }
-  //   })
-  //   useFrame((state, dt) => {
-  //     state.camera.position.lerp(p, 0.025)
-  //     state.camera.quaternion.slerp(q, 0.025)
-  //   })
-  //   return (
-  //     <group
-  //       ref={ref}
-  //       onClick={(e) => (e.stopPropagation(), setLocation(clicked.current === e.object ? '/' : '/item/' + e.object.name))}
-  //       onPointerMissed={() => setLocation('/')}>
-  //       {images.map((props) => <Frame key={props.url} {...props} /> /* prettier-ignore */)}
-  //     </group>
-  //   )
-  // }
+  const [clickedA, setClickedA] = useState(false)
+  const [clickedT, setClickedT] = useState(false)
+  const [clickedE, setClickedE] = useState(false)
+  const [zoom, setZoom] = useState(false)
+  function Marker() {
+    useFrame((state, delta) => {
+      const dummy = new THREE.Vector3()
+      const lookAtPos = new THREE.Vector3()
+      const step = 0.01
+      // state.camera.fov = THREE.MathUtils.lerp(state.camera.fov, zoom ? 10 : 42, step)
+      // 12.79, y: 0.11, z: 12.78
+      state.camera.position.lerp(dummy.set(clickedA ? 12.79 : 10, clickedA ? 0.11 : 0, clickedA ? 12.78 : 10), step)
+
+      lookAtPos.x = Math.sin(state.clock.getElapsedTime())
+
+      state.camera.lookAt(lookAtPos)
+      state.camera.updateProjectionMatrix()
+    })
+    useFrame((state, delta) => {
+      const dummy1 = new THREE.Vector3()
+      const lookAtPos1 = new THREE.Vector3()
+      const step = 0.01
+      // state.camera.fov = THREE.MathUtils.lerp(state.camera.fov, zoom ? 10 : 42, step)
+      // 0.17,0.11,0.24
+      state.camera.position.lerp(dummy1.set(clickedT ? -11.7 : 10, clickedT ? 0.11 : 0, clickedT ? -2 : 10), step)
+
+      lookAtPos1.x = Math.sin(state.clock.getElapsedTime())
+
+      state.camera.lookAt(lookAtPos1)
+      state.camera.updateProjectionMatrix()
+    })
+    useFrame((state, delta) => {
+      const dummy2 = new THREE.Vector3()
+      const lookAtPos2 = new THREE.Vector3()
+      const step = 0.01
+      // state.camera.fov = THREE.MathUtils.lerp(state.camera.fov, zoom ? 10 : 42, step)
+      // 0.17,0.11,0.24
+      state.camera.position.lerp(dummy2.set(clickedE ? -21.7 : 10, clickedE ? 0.11 : 0, clickedE ? -2 : 10), step)
+
+      lookAtPos2.x = Math.sin(state.clock.getElapsedTime())
+
+      state.camera.lookAt(lookAtPos2)
+      state.camera.updateProjectionMatrix()
+    })
+  }
+
 
   return (
     <div className="App">
@@ -164,15 +163,14 @@ function App() {
               return <NavList navList={item} />
             })
           }
-          
+
         </ul>
       </div>
       <div className="canvasContainer">
-        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{fov: 65, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio}>
+        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 65, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio}>
           <directionalLight position={[0, 0, -100]} intensity={.6} />
           <Suspense fallback={<Loader />}>
             <ThreeGraces />
-            {/* <Environment preset="sunset" background /> */}
           </Suspense>
           <Dodecahedron />
           {/* <Zoom /> */}
@@ -181,26 +179,44 @@ function App() {
           {/* <OrbitControls /> */}
         </Canvas>
       </div>
-      
+
       <div className='secondSection'>
-      <Canvas className='model' frameloop="demand" style={{ height: '100vh', background: 'black' }} camera={{fov: 55, position: [10, 10, 10] }} pixelRatio={window.devicePixelRatio}>
+        <Canvas className='model' frameloop="demand" style={{ height: '100vh', background: 'black' }} camera={{ fov: 55, position: [10, 10, 10] }} pixelRatio={window.devicePixelRatio}>
           <Suspense fallback={<Loader />}>
-            {/* <ThreeGracesSecondDiv /> */}
+            {/* <ScrollControls pages={3}> */}
+            {/* <Scroll/> */}
+            <Marker />
             <Model />
-                        <Environment preset="sunset" background />
+            {/* </ScrollControls> */}
+            {/* <Environment preset="sunset" background /> */}
+            <OrbitControls enableZoom={false} enableRotate={false} />
+            <hemisphereLight intensity={.01}  />
           </Suspense>
           <LightSection2 />
-          {/* <Rig /> */}
-          {/* <Test /> */}
+
 
         </Canvas>
-          <p className='aglaea' onClick={() => setClick(!click)}>lkdjalkdajkda</p>
         <div>
         </div>
       </div>
-   
-        <div className='title'>
-        <h2 style={{margin: 0}}>The</h2>
+      <div className='content'>
+        <h1 onClick={(e) => {
+          setClickedA(!clickedA)
+          setClickedT(false)
+          setClickedE(false)
+          }}>Aglaea</h1>
+        <h1 onClick={(e) => {
+          setClickedA(false)
+          setClickedE(false)
+          setClickedT(!clickedT)}}>Thalia</h1>
+        <h1 onClick={(e) => {
+          setClickedT(false)
+          setClickedA(false)
+          setClickedE(!clickedE)}}>Euphre</h1>
+      </div>
+
+      <div className='title'>
+        <h2 style={{ margin: 0 }}>The</h2>
         <h1>Three Graces</h1>
       </div>
     </div>

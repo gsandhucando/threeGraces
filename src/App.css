@@ -65,6 +65,13 @@
 }
 .aglaea{
   position: absolute;
+  top: 40%;
+  left: 35px;
+  font-size: 30px;
+  color: white;
+}
+.thalia{
+  position: absolute;
   top: 50%;
   left: 35px;
   font-size: 30px;

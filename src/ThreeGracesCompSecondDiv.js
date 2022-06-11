@@ -15,7 +15,7 @@ export default function Model(props) {
         <mesh geometry={nodes.Object_2.geometry} material={nodes.Object_2.material} />
         <mesh geometry={nodes.Object_3.geometry} material={nodes.Object_3.material} />
         <mesh geometry={nodes.Object_4.geometry} material={nodes.Object_4.material} />
-        <mesh geometry={nodes.Object_5.geometry} material={nodes.Object_5.material} />
+        <mesh onClick={() =>console.log('helllooo')} geometry={nodes.Object_5.geometry} material={nodes.Object_5.material} />
         <mesh geometry={nodes.Object_6.geometry} material={nodes.Object_6.material} />
         <mesh geometry={nodes.Object_7.geometry} material={nodes.Object_7.material} />
         <mesh geometry={nodes.Object_8.geometry} material={nodes.Object_8.material} />
