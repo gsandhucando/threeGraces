@@ -85,7 +85,7 @@ function LightSection2() {
 
   return (
     <>
-      <spotLight ref={ref} intensity={.1} position={[0, 0, 30]}  penumbra={.6} decay={2} castShadow />
+      <spotLight ref={ref} intensity={.1} position={[10, 0, 30]}  penumbra={.6} decay={2} castShadow />
       {/* <spotLight ref={light} intensity={100000} position={[0, -10, -100]} penumbra={10} decay={2} /> */}
       {/* <spotLight intensity={100} position={[0, -70, -4000]}  angle={10} penumbra={.6} castShadow /> */}
     </>
@@ -112,12 +112,13 @@ function App() {
   const [zoom, setZoom] = useState(false)
   function Marker() {
     useFrame((state, delta) => {
+      console.log(state.camera.position)
       const dummy = new THREE.Vector3()
       const lookAtPos = new THREE.Vector3()
       const step = 0.01
       // state.camera.fov = THREE.MathUtils.lerp(state.camera.fov, zoom ? 10 : 42, step)
       // 12.79, y: 0.11, z: 12.78
-      state.camera.position.lerp(dummy.set(clickedA ? 12.79 : 10, clickedA ? 0.11 : 0, clickedA ? 12.78 : 10), step)
+      state.camera.position.lerp(dummy.set(clickedA ? -18.79 : 10, clickedA ? 0.11 : 0, clickedA ? -12.78 : 10), step)
 
       lookAtPos.x = Math.sin(state.clock.getElapsedTime())
 
@@ -149,6 +150,15 @@ function App() {
 
       state.camera.lookAt(lookAtPos2)
       state.camera.updateProjectionMatrix()
+      // if (!clickedA, !clickedT, !clickedE) {
+      //   console.log('all false')
+      //   state.camera.position.lerp(dummy2.set(80,0,0), step)
+
+      //   lookAtPos2.x = Math.sin(state.clock.getElapsedTime())
+  
+      //   state.camera.lookAt(lookAtPos2)
+      //   state.camera.updateProjectionMatrix()
+      // } 
     })
   }
 
@@ -166,7 +176,7 @@ function App() {
         </ul>
       </div>
       <div className="canvasContainer">
-        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 65, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio}>
+        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 65, position: [-10, 0, 10] }} pixelRatio={window.devicePixelRatio}>
           <directionalLight position={[0, 0, -100]} intensity={.6} />
           <Suspense fallback={<Loader />}>
             <ThreeGraces />
@@ -180,7 +190,7 @@ function App() {
       </div>
 
       <div className='secondSection'>
-        <Canvas className='model' frameloop="demand" style={{ height: '100vh', background: 'black' }} camera={{ fov: 55, position: [10, 10, 10] }} pixelRatio={window.devicePixelRatio}>
+        <Canvas className='model' frameloop="demand" flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 75, position: [0, 0, 20] }} pixelRatio={window.devicePixelRatio}>
           <Suspense fallback={<Loader />}>
             {/* <ScrollControls pages={3}> */}
             {/* <Scroll/> */}
