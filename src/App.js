@@ -9,7 +9,6 @@ import './App.css';
 
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { CSSPlugin } from 'gsap/CSSPlugin'
-import { set } from 'mongoose';
 
 
 // Force CSSPlugin to not get dropped during build
