@@ -63,6 +63,13 @@
 .secondSection{
   position: relative;
 }
+.content{
+  position: absolute;
+  bottom: 0;
+}
+.names{
+  color: red;
+}
 .aglaea{
   position: absolute;
   top: 40%;

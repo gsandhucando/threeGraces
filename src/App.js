@@ -1,23 +1,11 @@
 import * as THREE from 'three';
-import React, { Suspense, useRef, useState, useEffect, useMemo } from "react"
-import { ScrollControls, useScroll, Environment, useGLTF, Html, useProgress, PerspectiveCamera, OrbitControls, useHelper } from "@react-three/drei"
+import React, { Suspense, useRef, useState, useEffect, useMemo, useLayoutEffect } from "react"
+import { useGLTF, Html, useProgress, PerspectiveCamera, OrbitControls, useHelper, Environment } from "@react-three/drei"
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import gsap, { Power3 } from 'gsap'
+import {gsap, Power3 } from 'gsap'
 import Model from './ThreeGracesCompSecondDiv'
 import NavList from './NavList'
 import './App.css';
-
-import ScrollTrigger from "gsap/ScrollTrigger";
-import { CSSPlugin } from 'gsap/CSSPlugin'
-
-
-// Force CSSPlugin to not get dropped during build
-gsap.registerPlugin(CSSPlugin)
-
-// ES6:
-// import * as dat from 'dat.gui';
-
-// const gui = new dat.GUI();
 
 
 function Loader() {
@@ -85,7 +73,7 @@ function LightSection2() {
 
   return (
     <>
-      <spotLight ref={ref} intensity={.1} position={[10, 0, 30]}  penumbra={.6} decay={2} castShadow />
+      <spotLight ref={ref} color="#4a2dd2" intensity={.1} position={[110, 0, 130]}  penumbra={.6} decay={2} castShadow />
       {/* <spotLight ref={light} intensity={100000} position={[0, -10, -100]} penumbra={10} decay={2} /> */}
       {/* <spotLight intensity={100} position={[0, -70, -4000]}  angle={10} penumbra={.6} castShadow /> */}
     </>
@@ -110,57 +98,78 @@ function App() {
   const [clickedT, setClickedT] = useState(false)
   const [clickedE, setClickedE] = useState(false)
   const [zoom, setZoom] = useState(false)
-  function Marker() {
-    useFrame((state, delta) => {
-      console.log(state.camera.position)
-      const dummy = new THREE.Vector3()
-      const lookAtPos = new THREE.Vector3()
-      const step = 0.01
-      // state.camera.fov = THREE.MathUtils.lerp(state.camera.fov, zoom ? 10 : 42, step)
-      // 12.79, y: 0.11, z: 12.78
-      state.camera.position.lerp(dummy.set(clickedA ? -18.79 : 10, clickedA ? 0.11 : 0, clickedA ? -12.78 : 10), step)
+  // function Marker() {
+  //   useFrame((state, delta) => {
+  //     console.log(state.camera.position)
+  //     const dummy = new THREE.Vector3()
+  //     const lookAtPos = new THREE.Vector3()
+  //     const step = 0.01
 
-      lookAtPos.x = Math.sin(state.clock.getElapsedTime())
+  //     state.camera.position.lerp(dummy.set(clickedA ? -18.79 : 10, clickedA ? 0.11 : 0, clickedA ? -12.78 : 10), step)
 
-      state.camera.lookAt(lookAtPos)
-      state.camera.updateProjectionMatrix()
-    })
-    useFrame((state, delta) => {
-      const dummy1 = new THREE.Vector3()
-      const lookAtPos1 = new THREE.Vector3()
-      const step = 0.01
-      // state.camera.fov = THREE.MathUtils.lerp(state.camera.fov, zoom ? 10 : 42, step)
-      // 0.17,0.11,0.24
-      state.camera.position.lerp(dummy1.set(clickedT ? -11.7 : 10, clickedT ? 0.11 : 0, clickedT ? -2 : 10), step)
+  //     lookAtPos.x = Math.sin(state.clock.getElapsedTime())
 
-      lookAtPos1.x = Math.sin(state.clock.getElapsedTime())
+  //     state.camera.lookAt(lookAtPos)
+  //     state.camera.updateProjectionMatrix()
+  //   })
+  //   useFrame((state, delta) => {
+  //     const dummy1 = new THREE.Vector3()
+  //     const lookAtPos1 = new THREE.Vector3()
+  //     const step = 0.01
 
-      state.camera.lookAt(lookAtPos1)
-      state.camera.updateProjectionMatrix()
-    })
-    useFrame((state, delta) => {
-      const dummy2 = new THREE.Vector3()
-      const lookAtPos2 = new THREE.Vector3()
-      const step = 0.01
-      // state.camera.fov = THREE.MathUtils.lerp(state.camera.fov, zoom ? 10 : 42, step)
-      // 0.17,0.11,0.24
-      state.camera.position.lerp(dummy2.set(clickedE ? -21.7 : 10, clickedE ? 0.11 : 0, clickedE ? -2 : 10), step)
+  //     state.camera.position.lerp(dummy1.set(clickedT ? -11.7 : 10, clickedT ? 0.11 : 0, clickedT ? -2 : 10), step)
 
-      lookAtPos2.x = Math.sin(state.clock.getElapsedTime())
+  //     lookAtPos1.x = Math.sin(state.clock.getElapsedTime())
 
-      state.camera.lookAt(lookAtPos2)
-      state.camera.updateProjectionMatrix()
-      // if (!clickedA, !clickedT, !clickedE) {
-      //   console.log('all false')
-      //   state.camera.position.lerp(dummy2.set(80,0,0), step)
+  //     state.camera.lookAt(lookAtPos1)
+  //     state.camera.updateProjectionMatrix()
+  //   })
+  //   useFrame((state, delta) => {
+  //     const dummy2 = new THREE.Vector3()
+  //     const lookAtPos2 = new THREE.Vector3()
+  //     const step = 0.01
 
-      //   lookAtPos2.x = Math.sin(state.clock.getElapsedTime())
-  
-      //   state.camera.lookAt(lookAtPos2)
-      //   state.camera.updateProjectionMatrix()
-      // } 
-    })
-  }
+  //     state.camera.position.lerp(dummy2.set(clickedE ? -21.7 : 10, clickedE ? 0.11 : 0, clickedE ? -2 : 10), step)
+
+  //     lookAtPos2.x = Math.sin(state.clock.getElapsedTime())
+
+  //     state.camera.lookAt(lookAtPos2)
+  //     state.camera.updateProjectionMatrix()
+  //   })
+  // }
+
+
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TRYING TO FIGURE OUT ON CLICK CAMERA POSITIONING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function Camera() {
+    const camRef = useRef()
+    const size = useThree(({ size }) => size)
+    const { camera } = useThree()
+
+    useLayoutEffect(() => {
+        if (camRef.current) {
+          camRef.current.aspect = size.width / size.height
+          camRef.current.updateProjectionMatrix()
+          camRef.current.fov = 65
+        }
+    }, [size])
+
+    useLayoutEffect(() => {
+      console.log(camera.position)
+      // camera.position(0,0,0)
+      if (clickedA) {
+        // camera.rotation.y = Math.PI / 2
+        gsap
+          // .to(camera.position, { x:-90, y:0, z: -30 , duration: 6})
+          .to(camera.position,{ x:100, y: 0, z: -30 , duration: 6})
+          // gsap.to( camera.rotation, {
+          //   duration: 1,
+          //   y: Math.PI * 0.25
+          // } );
+      }
+    }, [])
+
+    return <perspectiveCamera ref={camRef} />
+}
 
 
   return (
@@ -176,7 +185,7 @@ function App() {
         </ul>
       </div>
       <div className="canvasContainer">
-        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 65, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio}>
+        <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 65, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio} dpr={[1, 2]}>
           <directionalLight position={[0, 0, -100]} intensity={.6} />
           <Suspense fallback={<Loader />}>
             <ThreeGraces />
@@ -190,39 +199,43 @@ function App() {
       </div>
 
       <div className='secondSection'>
-        <Canvas className='model' frameloop="demand" flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 75, position: [0, 0, 20] }} pixelRatio={window.devicePixelRatio}>
+        <Canvas className='model' frameloop="demand" flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 75, position: [0, 0, 20] }} pixelRatio={window.devicePixelRatio} dpr={[1, 2]}>
+          {/* <fog attach="fog" args={['#black', 19,155]} /> */}
           <Suspense fallback={<Loader />}>
             {/* <ScrollControls pages={3}> */}
             {/* <Scroll/> */}
-            <Marker />
+            {/* <Marker /> */}
             <Model />
+            <Camera />
             {/* </ScrollControls> */}
-            {/* <Environment preset="sunset" background /> */}
+            <Environment preset="sunset" background />
             <OrbitControls enableZoom={false} enableRotate={false} />
-            <hemisphereLight intensity={.01}  />
+            {/* <hemisphereLight intensity={.01}  /> */}
           </Suspense>
           <LightSection2 />
 
 
         </Canvas>
-        <div>
-        </div>
-      </div>
-      <div className='content'>
-        <h1 onClick={(e) => {
+        <div className='content'>
+        <h1 className='names' onClick={(e) => {
+          e.preventDefault()
           setClickedA(!clickedA)
-          setClickedT(false)
-          setClickedE(false)
+          // setClickedT(false)
+          // setClickedE(false)
           }}>Aglaea</h1>
-        <h1 onClick={(e) => {
-          setClickedA(false)
-          setClickedE(false)
+        <h1 className='names' onClick={(e) => {
+          e.preventDefault()
+          // setClickedA(false)
+          // setClickedE(false)
           setClickedT(!clickedT)}}>Thalia</h1>
-        <h1 onClick={(e) => {
-          setClickedT(false)
-          setClickedA(false)
+        <h1 className='names' onClick={(e) => {
+          e.preventDefault()
+          // setClickedT(false)
+          // setClickedA(false)
           setClickedE(!clickedE)}}>Euphre</h1>
       </div>
+      </div>
+
 
       <div className='title'>
         <h2 style={{ margin: 0 }}>The</h2>
