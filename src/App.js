@@ -8,6 +8,7 @@ import NavList from './NavList'
 import './App.css';
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import gsapCore from 'gsap/gsap-core';
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -111,33 +112,34 @@ function App() {
     const { camera } = useThree()
     useLayoutEffect(() => {
       ref.current.rotation.set(0, 0, 0)
-      camera.position.set(2, 0, 5)
+      camera.position.set(2, -20, 5)
       gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: '.section-one',
-            start: 'center center',
-            endTrigger: '.section-five',
-            end: 'bottom bottom',
-            scrub: 1,
-            // snap: {
-            //   snapTo: "section", // snap to the closest label in the timeline
-            //   duration: {min: 0.2, max: 3}, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
-            //   delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
-            //   ease: "power1.inOut" // the ease of the snap animation ("power3" by default)
-            // },
-            markers: true
-          }
-        })
-        .to(ref.current.rotation, { y: -1 })
+      .timeline({
+        scrollTrigger: {
+          trigger: '.section-three',
+          start: '20px 90%',
+          endTrigger: '.section-five',
+          end: 'bottom bottom',
+          scrub: 1,
+          // snap: {
+          //   snapTo: "section", // snap to the closest label in the timeline
+          //   duration: {min: 0.2, max: 3}, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
+          //   delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
+          //   ease: "power1.inOut" // the ease of the snap animation ("power3" by default)
+          // },
+          markers: true
+        }
+      })
+      .to(ref.current.rotation, { y: -1 })
+      .to(camera.position, {x: 14, y:0}, 'simultaneously')
+
+      .to(ref.current.rotation, { y: 0}, 'simultaneously')
+      .to(camera.position, {x: -10,z: -5 }, 'simultaneously')
+
+      .to(ref.current.rotation, { y: .5 })
+      .to(camera.position, {x: -2, z:-1 })
 
 
-        .to(ref.current.rotation, { y: 0 }, 'simultaneously')
-        .to(camera.position, {x: -10,z: -5 }, 'simultaneously')
-
-
-        .to(ref.current.rotation, { y: .5 })
-        .to(camera.position, {x: -2, z:-1 })
     }, [])
     return <group ref={ref}>{children}</group>
   }
@@ -165,12 +167,12 @@ function App() {
           <Rig />
         </Canvas>
       </div>
-      <div className='contentSection' style={{height: '50vh'}}>
+      {/* <div className='contentSection' style={{ height: '50vh' }}>
 
-      </div>
+      </div> */}
 
-      <div className='secondSection' style={{position: 'relative'}}>
-        <Canvas style={{ width: '100vw', height: '100vh', zIndex: 50, position: 'absolute'}}>
+      <div className='secondSection' style={{ position: 'relative' }}>
+        <Canvas style={{ width: '100vw', height: '104vh', zIndex: 50, position: 'absolute' }}>
           {/* <fog attach="fog" args={['#black', 19,155]} /> */}
           <Suspense fallback={<Loader />}>
             {/* <ScrollControls pages={3}> */}
@@ -191,12 +193,10 @@ function App() {
 
         </Canvas>
         <section className="section-one" > asdsadasdad</section>
-        <section className="section-two" > asdsadasdad</section>
-        <section className="section-three" > asdsadasdad</section>
+        <section className="section-two" />
+        <section className="section-three" />
         <section className="section-four" > asdsadasdad</section>
-        <section className="section-five" > asdsadasdad</section>
-        {/* <section className="section-two" />
-        <section className="section-three" /> */}
+        {/* <section className="section-five" > asdsadasdad</section> */}
       </div>
 
 

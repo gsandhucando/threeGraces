@@ -93,7 +93,32 @@ section {
   width: 100%;
   height: 25vh;
   position: relative;
+    z-index: 1000;
   
+}
+.section-one{
+  width: 100%;
+  height: 25vh;
+  position: relative;
+    z-index: 1000;
+}
+.section-two{
+  width: 100%;
+  height: 25vh;
+  position: relative;
+    z-index: 1000;
+}
+.section-three{
+  width: 100%;
+  height: 25vh;
+  position: relative;
+    z-index: 1000;
+}
+.section-four{
+  width: 100%;
+  height: 25vh;
+  position: relative;
+    z-index: 1000;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&display=swap');
