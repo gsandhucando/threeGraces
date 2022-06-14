@@ -116,18 +116,24 @@ function App() {
         .timeline({
           scrollTrigger: {
             trigger: '.section-one',
-            start: 'top top',
+            start: 'center center',
             endTrigger: '.section-five',
             end: 'bottom bottom',
             scrub: 1,
+            // snap: {
+            //   snapTo: "section", // snap to the closest label in the timeline
+            //   duration: {min: 0.2, max: 3}, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
+            //   delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
+            //   ease: "power1.inOut" // the ease of the snap animation ("power3" by default)
+            // },
             markers: true
           }
         })
         .to(ref.current.rotation, { y: -1 })
 
 
-        .to(ref.current.rotation, { y: 0 })
-        .to(camera.position, {x: -10, y: -3,z: -5 })
+        .to(ref.current.rotation, { y: 0 }, 'simultaneously')
+        .to(camera.position, {x: -10,z: -5 }, 'simultaneously')
 
 
         .to(ref.current.rotation, { y: .5 })
@@ -148,7 +154,7 @@ function App() {
 
         </ul>
       </div>
-      {/* <div className="canvasContainer">
+      <div className="canvasContainer">
         <Canvas className='model' flat style={{ height: '100vh', background: 'black' }} camera={{ fov: 65, position: [0, 0, 10] }} pixelRatio={window.devicePixelRatio} dpr={[1, 2]}>
           <fog attach="fog" args={['#deaa83', 19, 155]} />
           <directionalLight position={[0, 0, -100]} intensity={.6} />
@@ -158,10 +164,13 @@ function App() {
           <Dodecahedron />
           <Rig />
         </Canvas>
-      </div> */}
+      </div>
+      <div className='contentSection' style={{height: '50vh'}}>
 
-      <div className='secondSection'>
-        <Canvas style={{ width: '100vw', height: '100vh', zIndex: 50, position: 'fixed' }}>
+      </div>
+
+      <div className='secondSection' style={{position: 'relative'}}>
+        <Canvas style={{ width: '100vw', height: '100vh', zIndex: 50, position: 'absolute'}}>
           {/* <fog attach="fog" args={['#black', 19,155]} /> */}
           <Suspense fallback={<Loader />}>
             {/* <ScrollControls pages={3}> */}
@@ -181,29 +190,13 @@ function App() {
 
 
         </Canvas>
-        <section className="section-one" />
-        <section className="section-two" />
-        <section className="section-three" />
-        <section className="section-four" />
-        <section className="section-five" />
-        {/* <div className='content'>
-        <h1 className='names' onClick={(e) => {
-          // e.preventDefault()
-          setClickedA(!clickedA)
-          // setClickedT(false)
-          // setClickedE(false)
-          }}>Aglaea</h1>
-        <h1 className='names' onClick={(e) => {
-          e.preventDefault()
-          // setClickedA(false)
-          // setClickedE(false)
-          setClickedT(!clickedT)}}>Thalia</h1>
-        <h1 className='names' onClick={(e) => {
-          e.preventDefault()
-          // setClickedT(false)
-          // setClickedA(false)
-          setClickedE(!clickedE)}}>Euphre</h1>
-      </div> */}
+        <section className="section-one" > asdsadasdad</section>
+        <section className="section-two" > asdsadasdad</section>
+        <section className="section-three" > asdsadasdad</section>
+        <section className="section-four" > asdsadasdad</section>
+        <section className="section-five" > asdsadasdad</section>
+        {/* <section className="section-two" />
+        <section className="section-three" /> */}
       </div>
 
 
