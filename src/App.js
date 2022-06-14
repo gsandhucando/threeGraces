@@ -104,6 +104,8 @@ function App() {
   const [clickedE, setClickedE] = useState(false)
   const [zoom, setZoom] = useState(false)
 
+  //names Aglaea Thalia Euphre
+
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TRYING TO FIGURE OUT ON CLICK CAMERA POSITIONING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -117,9 +119,10 @@ function App() {
       .timeline({
         scrollTrigger: {
           trigger: '.section-three',
-          start: '20px 90%',
-          endTrigger: '.section-five',
-          end: 'bottom bottom',
+          start: '200px 90%',
+          // endTrigger: '.section-five',
+          // end: 'bottom bottom',
+          end: '+=300',
           scrub: 1,
           // snap: {
           //   snapTo: "section", // snap to the closest label in the timeline
@@ -136,7 +139,7 @@ function App() {
       .to(ref.current.rotation, { y: 0}, 'simultaneously')
       .to(camera.position, {x: -10,z: -5 }, 'simultaneously')
 
-      .to(ref.current.rotation, { y: .5 })
+      .to(ref.current.rotation, { y: .5 }, 'simultaneously')
       .to(camera.position, {x: -2, z:-1 })
 
 
@@ -167,9 +170,9 @@ function App() {
           <Rig />
         </Canvas>
       </div>
-      {/* <div className='contentSection' style={{ height: '50vh' }}>
+      <div className='contentSection' style={{ height: '50vh' }}>
 
-      </div> */}
+      </div>
 
       <div className='secondSection' style={{ position: 'relative' }}>
         <Canvas style={{ width: '100vw', height: '104vh', zIndex: 50, position: 'absolute' }}>
@@ -192,9 +195,12 @@ function App() {
 
 
         </Canvas>
-        <section className="section-one" > asdsadasdad</section>
-        <section className="section-two" />
-        <section className="section-three" />
+        <section className="section-one" >
+        </section>
+        <section className="section-two">
+        </section>
+        <section className="section-three">
+        </section>
         <section className="section-four" > asdsadasdad</section>
         {/* <section className="section-five" > asdsadasdad</section> */}
       </div>
