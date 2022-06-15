@@ -144,7 +144,7 @@ function App() {
       <div className='contentSection' style={{ height: '50vh' }}>
         <h1 className='loreTitle'>The Lore</h1>
         <p className='lore'>
-          the group of minor goddesses—part of Aphrodite’s retinue—consists of <br />
+          The group of minor goddesses—part of Aphrodite’s retinue—consists of <br />
           Euphrosyne (joy), Thalia (bloom), and Aglaia (elegance or brightness).  <br />
           Together, they personify grace, beauty, and charm.
         </p>
