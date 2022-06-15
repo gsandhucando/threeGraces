@@ -166,5 +166,24 @@ section {
 .graceContiner{
   opacity: 0;
 }
+.footer{
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* background: black; */
+  font-family: 'El Messiri', sans-serif;
+  text-align: center;
+  z-index: 1001;
+  position: absolute;
+  /* bottom: -54px; */
+  width: 100%;
+  background: transparent;
+  margin: 0;
+}
+.credit{
+  color: white;
+  font-size: 10px;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&display=swap');

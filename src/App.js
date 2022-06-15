@@ -113,7 +113,7 @@ function App() {
         .to(ref.current.rotation, { y: .5 }, 'simultaneously')
         .to(camera.position, { x: -2, z: -1 })
 
-  }, [])
+    }, [])
     return <group ref={ref}>{children}</group>
   }
 
@@ -144,15 +144,15 @@ function App() {
       <div className='contentSection' style={{ height: '50vh' }}>
         <h1 className='loreTitle'>The Lore</h1>
         <p className='lore'>
-          the group of minor goddesses—part of Aphrodite’s retinue—consists of <br/> 
-          Euphrosyne (joy), Thalia (bloom), and Aglaia (elegance or brightness).  <br/>
+          the group of minor goddesses—part of Aphrodite’s retinue—consists of <br />
+          Euphrosyne (joy), Thalia (bloom), and Aglaia (elegance or brightness).  <br />
           Together, they personify grace, beauty, and charm.
         </p>
         <div className='graceContiner'>
-          <h1 style={{margin: "0 10px"}}>Aglaea (left)</h1>
-          <h1 style={{margin: "0 10px"}}>Thalia (middle)</h1>
-          <h1 style={{margin: "0 10px"}}>Euphre (right)</h1>
-          </div>
+          <h1 style={{ margin: "0 10px" }}>Aglaea (left)</h1>
+          <h1 style={{ margin: "0 10px" }}>Thalia (middle)</h1>
+          <h1 style={{ margin: "0 10px" }}>Euphre (right)</h1>
+        </div>
       </div>
 
       <div className='secondSection' style={{ position: 'relative' }}>
@@ -175,6 +175,10 @@ function App() {
         </section>
         <section className="section-four" ></section>
         {/* <section className="section-five" > asdsadasdad</section> */}
+        <div className='footer'>
+          <p className='credit'>Recreated design from Tom Bogner and model from Geoffrey Marchal
+          </p>
+        </div>
       </div>
 
 
