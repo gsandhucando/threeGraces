@@ -17,7 +17,7 @@ export default function NavList({navList}) {
             {navList}
             {mouseEnter &&
              <div className='titleContainer'>
-               <div className='line' style={{height: 4, background: '#6a6a6a'}} />
+               <div className='line' style={{height: 4, background: 'white'}} />
              </div>
 
         }
