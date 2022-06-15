@@ -176,8 +176,7 @@ function App() {
         <section className="section-four" ></section>
         {/* <section className="section-five" > asdsadasdad</section> */}
         <div className='footer'>
-          <p className='credit'>Recreated design from Tom Bogner and model from Geoffrey Marchal
-          </p>
+          <p className='credit'>Recreated design from Tom Bogner and model from Geoffrey Marchal</p>
         </div>
       </div>
 
