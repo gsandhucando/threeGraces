@@ -120,5 +120,27 @@ section {
   position: relative;
     z-index: 1000;
 }
+.contentSection{
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  font-family: 'El Messiri', sans-serif;
+  text-align: center;
+}
+.loreTitle{
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+  font-size: 4em;
+  letter-spacing: 0.5em;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+/* .lore{
+
+} */
 
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&display=swap');

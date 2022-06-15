@@ -10,7 +10,7 @@ export default function Model(props) {
   const { nodes, materials } = useGLTF('../../threeGracesCompSecondDiv.glb')
   return (
     <group ref={group} {...props} dispose={null}>
-      <group position={[-33, -115, -10]} rotation={[-Math.PI / 2, 0, 0]}>
+      <group  position={[-33, -115, -10]} rotation={[-Math.PI / 2, 0, 0]}>
         <mesh geometry={nodes.Object_10.geometry} material={nodes.Object_10.material} />
         <mesh geometry={nodes.Object_2.geometry} material={nodes.Object_2.material} />
         <mesh geometry={nodes.Object_3.geometry} material={nodes.Object_3.material} />

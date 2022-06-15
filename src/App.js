@@ -61,28 +61,63 @@ function Dodecahedron() {
 }
 
 function LightSection2() {
-  const { viewport } = useThree()
-  // viewport = canvas in 3d units (meters)
+  // const { viewport } = useThree()
+  // // viewport = canvas in 3d units (meters)
 
+  // const ref = useRef()
+  // useFrame(({ mouse }) => {
+  //   const x = (mouse.x * viewport.width)
+  //   const y = (mouse.y * viewport.height)
+  //   // console.log(ref.current.position)
+  //   ref.current.position.set(-x + 2, -y, 30)
+  //   // ref.current.rotation.set(-y, x, 30)
+  // }, [])
+
+  // const light = useRef()
+  // //useHelper(light, THREE.SpotLightHelper, 'cyan')
   const ref = useRef()
-  useFrame(({ mouse }) => {
-    const x = (mouse.x * viewport.width)
-    const y = (mouse.y * viewport.height)
-    // console.log(ref.current.position)
-    ref.current.position.set(-x, -y, 30)
-    // ref.current.rotation.set(-y, x, 30)
+  const { camera } = useThree()
+  useLayoutEffect(() => {
+    ref.current.rotation.set(0, 0, 0)
+    camera.position.set(2, -20, 5)
+    console.log(camera, 'ref')
+    if (camera.position == { x: 14 }) {
+      gsap.to(camera.position, { x: 2, y: -20, z: 5 })
+      ref.current.position.set(20, 0, 30)
+      // ref.current.rotation.set(-y, x, 30)
+    }
+
+    // gsap
+    //   .timeline({
+    //     scrollTrigger: {
+    //       trigger: '.section-three',
+    //       start: '200px 90%',
+    //       // endTrigger: '.section-five',
+    //       // end: 'bottom bottom',
+    //       end: '+=300',
+    //       scrub: 1,
+    //       // snap: {
+    //       //   snapTo: "section", // snap to the closest label in the timeline
+    //       //   duration: {min: 0.2, max: 3}, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
+    //       //   delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
+    //       //   ease: "power1.inOut" // the ease of the snap animation ("power3" by default)
+    //       // },
+    //       markers: true
+    //     }
+    //   })
+    //   .to(ref.current.rotation, { y: -1 })
+    //   .to(camera.position, { x: 14, y: 0 }, 'simultaneously')
+
+    //   .to(ref.current.rotation, { y: 0 }, 'simultaneously')
+    //   .to(camera.position, { x: -10, z: -5 }, 'simultaneously')
+
+    //   .to(ref.current.rotation, { y: .5 }, 'simultaneously')
+    //   .to(camera.position, { x: -2, z: -1 })
+
+
   }, [])
+  return <spotLight ref={ref} intensity={.3} position={[0, 0, 30]} angle={0.15} penumbra={1} decay={2} castShadow />
 
-  const light = useRef()
-  useHelper(light, THREE.SpotLightHelper, 'cyan')
-
-  return (
-    <>
-      <spotLight ref={ref} color="#4a2dd2" intensity={.1} position={[110, 0, 130]} penumbra={.6} decay={2} castShadow />
-      {/* <spotLight ref={light} intensity={100000} position={[0, -10, -100]} penumbra={10} decay={2} /> */}
-      {/* <spotLight intensity={100} position={[0, -70, -4000]}  angle={10} penumbra={.6} castShadow /> */}
-    </>
-  )
 }
 
 
@@ -116,31 +151,31 @@ function App() {
       ref.current.rotation.set(0, 0, 0)
       camera.position.set(2, -20, 5)
       gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: '.section-three',
-          start: '200px 90%',
-          // endTrigger: '.section-five',
-          // end: 'bottom bottom',
-          end: '+=300',
-          scrub: 1,
-          // snap: {
-          //   snapTo: "section", // snap to the closest label in the timeline
-          //   duration: {min: 0.2, max: 3}, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
-          //   delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
-          //   ease: "power1.inOut" // the ease of the snap animation ("power3" by default)
-          // },
-          markers: true
-        }
-      })
-      .to(ref.current.rotation, { y: -1 })
-      .to(camera.position, {x: 14, y:0}, 'simultaneously')
+        .timeline({
+          scrollTrigger: {
+            trigger: '.section-three',
+            start: '180px 90%',
+            // endTrigger: '.section-five',
+            // end: 'bottom bottom',
+            end: '+=300',
+            scrub: 1,
+            // snap: {
+            //   snapTo: "section", // snap to the closest label in the timeline
+            //   duration: {min: 0.2, max: 3}, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
+            //   delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
+            //   ease: "power1.inOut" // the ease of the snap animation ("power3" by default)
+            // },
+            markers: true
+          }
+        })
+        .to(ref.current.rotation, { y: -1 })
+        .to(camera.position, { x: 14, y: 0 }, 'simultaneously')
 
-      .to(ref.current.rotation, { y: 0}, 'simultaneously')
-      .to(camera.position, {x: -10,z: -5 }, 'simultaneously')
+        .to(ref.current.rotation, { y: 0 }, 'simultaneously')
+        .to(camera.position, { x: -10, z: -5 }, 'simultaneously')
 
-      .to(ref.current.rotation, { y: .5 }, 'simultaneously')
-      .to(camera.position, {x: -2, z:-1 })
+        .to(ref.current.rotation, { y: .5 }, 'simultaneously')
+        .to(camera.position, { x: -2, z: -1 })
 
 
     }, [])
@@ -171,27 +206,29 @@ function App() {
         </Canvas>
       </div>
       <div className='contentSection' style={{ height: '50vh' }}>
-
+        <h1 className='loreTitle'>The Lore</h1>
+        <p className='lore'>
+          the group of minor goddesses—part of Aphrodite’s retinue—consists of <br/> 
+          Euphrosyne (joy), Thalia (bloom), and Aglaia (elegance or brightness).  <br/>
+          Together, they personify grace, beauty, and charm.
+        </p>
       </div>
 
       <div className='secondSection' style={{ position: 'relative' }}>
-        <Canvas style={{ width: '100vw', height: '104vh', zIndex: 50, position: 'absolute' }}>
-          {/* <fog attach="fog" args={['#black', 19,155]} /> */}
+        <Canvas style={{ width: '100vw', height: '104vh', zIndex: 50, position: 'absolute', background: 'black' }}>
+          <fog attach="fog" args={['purple', 1, 155]} />
           <Suspense fallback={<Loader />}>
-            {/* <ScrollControls pages={3}> */}
-            {/* <Scroll/> */}
-            {/* <Marker /> */}
             <AnimationWrapper>
               <Model />
+              {/* <LightSection2 /> */}
             </AnimationWrapper>
-            {/* <Camera /> */}
-            {/* </ScrollControls> */}
-            <Environment preset="sunset" background />
-            {/* <OrbitControls enableZoom={false} enableRotate={false} /> */}
-            {/* enablePan={false} for orbit control when finished */}
-            {/* <hemisphereLight intensity={.01}  /> */}
+            {/* <Environment preset="sunset" background /> */}
+            {/* <hemisphereLight intensity={.1} position={[0,100,100]} /> */}
+            <spotLight intensity={.3} position={[0, 0, 30]} angle={0.15} penumbra={1} decay={2} castShadow />
+            <spotLight intensity={.3} position={[0, 0, 30]} angle={0.45} penumbra={1} decay={2} castShadow />
+            <spotLight intensity={.3} position={[0, 0, 30]} angle={0.5} penumbra={1} decay={2} castShadow />
           </Suspense>
-          <LightSection2 />
+          {/* <LightSection2 /> */}
 
 
         </Canvas>
